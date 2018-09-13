@@ -26,7 +26,7 @@ public interface lectureService {
 	public	HashMap<String, Object>	selectAllLectureA(int page); // 수정
 	public	HashMap<String, Object>	selectAllLectureG(int page); // 수정
 	
-	public int updateLecturePeople (int no); // 추가 (강의 신청인원 증가)
+	public int updateLecturePeople (int no, String id); // 추가 (강의 신청인원 증가)
 	public	int	insertLectureComment	(lectureComment lectureComment);
 	public	List<lectureComment>	selectLectureComment (HashMap<String, Object> params);
 	public	lectureComment	selectLectureLatestcomment();

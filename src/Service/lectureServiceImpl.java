@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -145,7 +147,7 @@ public class lectureServiceImpl implements lectureService{
 	}
 	// 강의 모집인원 숫자 변경 함수 // 추가
 	@Override
-	public int updateLecturePeople(int no) {
+	public int updateLecturePeople(int no, String id) {
 		lecture originLec = lectureDao.selectOneLecture(no);
 		int currentPeople = originLec.getNumberPeople();
 		lecture lecture = new lecture();
@@ -154,8 +156,12 @@ public class lectureServiceImpl implements lectureService{
 			// 알림 소스
 			mainService.insertAlarm("maxPeople", originLec.getArtistID(), originLec.getTitle());		// 모집 완료 알림: 아티스트에게 전송
 			if (originLec.getGuestID()!=null) {
-				mainService.insertAlarm("maxPeople", originLec.getGuestID(), originLec.getTitle());  // // 모집 완료 알림: 개설한 사용자에게 전송
+				mainService.insertAlarm("maxPeople", originLec.getGuestID(), originLec.getTitle());  // 모집 완료 알림: 개설한 사용자에게 전송
 			}
+			for (attendants attendants : lectureDao.selectAttendants(no)) {
+				mainService.insertAlarm("maxPeople", attendants.getId(), originLec.getTitle());		// 모집 완료 알림 : 강의참석자에게 전송
+			}
+			mainService.insertAlarm("maxPeople", id, originLec.getTitle());	// 모집 완료 알림 : 현 접속자에게 전송
 		}
 		lecture.setNumberPeople(currentPeople + 1);
 		lecture.setNo(no);

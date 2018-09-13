@@ -38,7 +38,7 @@
 .scrollable-menu {
     height : auto;
     max-height : 330px;
-    width : 250px;
+    width : 50px;
     overflow-x : hidden;
 }
 </style>
@@ -143,6 +143,19 @@
 			var pw = prompt("비밀번호를 입력하세요.");
 			
 			location.href="deleteMember.do?pwd=" + pw;
+		});
+		
+		$("#chat").click(function() {
+			var width = 800,
+			height = 900;
+			var left = (screen.availWidth - width) / 2;
+			var top = (screen.availHeight - height) / 2;
+			var specs = "width=" + width;
+			specs += ",height=" + height;
+			specs += ",left=" + left;
+			specs += ",top=" + top;
+
+			window.open("http://10.10.10.71:3000/client?id=" + $("#id").val(), "공개 채팅방", specs);
 		});
 	});
 
@@ -283,8 +296,7 @@
 							개
 					</a></li>
 					<li><a
-						href="http://10.10.10.71:3000/client?id=<%=session.getAttribute("id")%>">공개
-							채팅방</a></li>
+						href="javascript:;" id="chat">공개 채팅방</a></li>
 				   </ul>
 			 </div>
 				<!-- Mobile Nav  ================================================== -->

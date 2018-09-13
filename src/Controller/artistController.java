@@ -271,11 +271,7 @@ public class artistController {
 		
 		return null;
 	}
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> origin/master
 	@RequestMapping("followingList.do")
 	   public String followingList(HttpServletRequest req, HttpServletResponse resp, String following, Model model) 
 	         throws IOException {

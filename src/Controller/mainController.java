@@ -629,9 +629,6 @@ public class mainController {
 		pw.println(jsonObj);
 	}
 	
-<<<<<<< HEAD
-	
-=======
 	@RequestMapping("deleteMember.do")
 	public String deleteMember(String pwd, HttpSession session, HttpServletResponse resp) throws IOException {
 		String id = (String) session.getAttribute("id");
@@ -653,7 +650,6 @@ public class mainController {
 			return null;
 		}
 	}
->>>>>>> origin/master
 } // public class의 끝.
 
 //	@RequestMapping("isCheckMember.do")

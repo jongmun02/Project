@@ -475,11 +475,9 @@ public class boardController {
 	@RequestMapping("addLecture.do") // lecture 테이블에 insert 요청
 	public String addLecture(HttpServletRequest request, @RequestParam MultipartFile ufile, HttpSession session) {
 
-		System.out.println(request.getParameter("artistID"));
-
 		String id = (String) session.getAttribute("id");
 		lecture lecture = new lecture();
-		if (request.getParameter("artistID") == null) {
+		if (request.getParameter("artistID").isEmpty()) {
 			lecture.setState(1);
 			lecture.setArtistID(id);
 			lecture.setGuestID(null);
@@ -488,7 +486,6 @@ public class boardController {
 			lecture.setArtistID(request.getParameter("artistID"));
 			lecture.setGuestID(id);
 		}
-		
 
 		lecture.setNumberPeople(0);
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd"); // String으로 넘어오기 때문에 형 변환!
@@ -684,7 +681,7 @@ public class boardController {
 			return mav;
 		} else { // 신청 완료
 			mav.addObject("msg", 0);
-			lectureService.updateLecturePeople(no);
+			lectureService.updateLecturePeople(no, id);
 			lectureService.insertAttendants(no, id);
 			return mav;
 		}
